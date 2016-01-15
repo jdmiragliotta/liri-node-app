@@ -1,6 +1,7 @@
 var liri = require("./keys.js");
 var spotify = require("spotify");
 var fs = require("fs");
+var request = require('request');
 
 var params = process.argv.slice(2);
 
@@ -38,5 +39,25 @@ function spotifyCall (arg) {
     console.log("Track Name: " + albumInfo.name);
     console.log("Preview Link: " + albumInfo.preview_url);
     console.log("Album: " + albumInfo.album.name);
+  });
+}
+
+
+function movieCall (arg) {
+  var omdbApi = 'http://www.omdbapi.com/?t=';
+  var query = params[1];
+  var jsonEnd = '&y=&plot=short&r=json&tomatoes=true';
+  
+  request(omdbApi+query+jsonEnd, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      console.log("Title: "+ JSON.parse(body)["Title"]);
+      console.log("Year: "+ JSON.parse(body)["Year"]);
+      console.log("IMDB Rating: "+ JSON.parse(body)["imdbRating"]);
+      console.log("Country: "+ JSON.parse(body)["Country"]);
+      console.log("Language: "+ JSON.parse(body)["Language"]);
+      console.log("Plot: "+ JSON.parse(body)["Plot"]);
+      console.log("Actors: "+ JSON.parse(body)["Actors"]);
+      console.log("Rotten Tomatoes Rating: "+ JSON.parse(body)["tomatoRating"]);
+    }
   });
 }
