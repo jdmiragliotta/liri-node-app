@@ -18,7 +18,11 @@ switch(params[0]) {
     }
     break;
   case "movie-this":
-    movieCall(params[1]);
+  if(params[1]){
+      movieCall(params[1]);
+    }else {
+      movieCall("Mr. Nobody")
+    }
     break;
   case "do-what-it-says":
     saysCall(params[1]);
