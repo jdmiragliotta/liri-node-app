@@ -6,9 +6,9 @@ var request = require('request');
 var params = process.argv.slice(2);
 
 
-switch(params[0]) {
+switch(params[1]) {
   case "my-tweets":
-    tweetsCall();
+    tweetsCall(params[0]);
     break;
   case "spotify-this-song":
     if(params[1]){
@@ -30,9 +30,9 @@ switch(params[0]) {
 }
 
 function tweetsCall(){
-  //print out last 20 tweets and their dates
-  var user = {screen_name: 'nodejs'};
-  exports.twitterKeys.get('statuses/user_timeline', user, function(error, tweets, response){
+  var client = new Twitter(liri.twitterKeys);
+  var params = {screen_name: 'jmigsdesign'};
+  client.get('statuses/user_timeline', params, function(error, tweets, response){
     if (!error) {
       console.log(tweets);
     }
