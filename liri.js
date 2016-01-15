@@ -8,7 +8,7 @@ var params = process.argv.slice(2);
 
 switch(params[0]) {
   case "my-tweets":
-    tweetsCall(params[1]);
+    tweetsCall();
     break;
   case "spotify-this-song":
     if(params[1]){
@@ -27,7 +27,19 @@ switch(params[0]) {
   case "do-what-it-says":
     saysCall(params[1]);
     break;
-  }
+}
+
+function tweetsCall(){
+  //print out last 20 tweets and their dates
+  var user = {screen_name: 'nodejs'};
+  exports.twitterKeys.get('statuses/user_timeline', user, function(error, tweets, response){
+    if (!error) {
+      console.log(tweets);
+    }
+  });
+}
+
+
 
 function spotifyCall (arg) {
   spotify.search({ type: 'track', query: arg }, function(err, data) {
