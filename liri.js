@@ -1,4 +1,4 @@
-var liri = require("./keys.js");
+var twitterKeys = require("./keys.js");
 var spotify = require("spotify");
 var fs = require("fs");
 var request = require('request');
@@ -8,7 +8,7 @@ var params = process.argv.slice(2);
 
 switch(params[1]) {
   case "my-tweets":
-    tweetsCall(params[0]);
+    tweetsCall();
     break;
   case "spotify-this-song":
     if(params[1]){
@@ -30,12 +30,20 @@ switch(params[1]) {
 }
 
 function tweetsCall(){
-  var client = new Twitter(liri.twitterKeys);
-  var params = {screen_name: 'jmigsdesign'};
-  client.get('statuses/user_timeline', params, function(error, tweets, response){
-    if (!error) {
-      console.log(tweets);
-    }
+  //var client = new Twitter(liri.twitterKeys);
+  
+  var client = new twitter({
+    consumer_key: twitterKeys.twitterKeys.consumer_key,
+    consumer_secret: twitterKeys.twitterKeys.consumer_secret,
+    access_token_key: twitterKeys.twitterKeys.access_token_key,
+    access_token_secret: twitterKeys.twitterKeys.access_token_secret})
+  
+  client.get('statuses/user_timeline', {screen_name: 'jmigsdesign'}, function(error, tweets, response){
+    for(var i = 0; i < data.length; i++){
+      console.log(data[i].text);
+      console.log(data[i].created_at);
+      console.log();
+    };
   });
 }
 
