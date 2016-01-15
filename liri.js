@@ -63,3 +63,13 @@ function movieCall () {
     }
   });
 }
+
+function saysCall (){
+  //Take "spotify-this-song" out of random.txt and use it to class "I want it that way"
+  fs.readFile("random.txt", "utf8", function(err, data){
+    data = data.split(',');
+    spotifyCall(data[1]) 
+  });
+};
+
+ 
