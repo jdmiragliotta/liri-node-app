@@ -1,4 +1,5 @@
-var twitterKeys = require("./keys.js");
+
+var liri = require("./keys.js");
 var spotify = require("spotify");
 var fs = require("fs");
 var request = require('request');
@@ -6,9 +7,9 @@ var request = require('request');
 var params = process.argv.slice(2);
 
 
-switch(params[1]) {
+switch(params[0]) {
   case "my-tweets":
-    tweetsCall();
+    tweetsCall(params[1]);
     break;
   case "spotify-this-song":
     if(params[1]){
@@ -27,27 +28,7 @@ switch(params[1]) {
   case "do-what-it-says":
     saysCall(params[1]);
     break;
-}
-
-function tweetsCall(){
-  //var client = new Twitter(twitterkeys.twitterKeys);
-  
-  var client = new twitter({
-    consumer_key: twitterKeys.twitterKeys.consumer_key,
-    consumer_secret: twitterKeys.twitterKeys.consumer_secret,
-    access_token_key: twitterKeys.twitterKeys.access_token_key,
-    access_token_secret: twitterKeys.twitterKeys.access_token_secret})
-  
-  client.get('statuses/user_timeline', {screen_name: 'jmigsdesign'}, function (error, tweets, response){
-    for(var i = 0; i < data.length; i++){
-      console.log(data[i].text);
-      console.log(data[i].created_at);
-      console.log();
-    };
-  });
-}
-
-
+  }
 
 function spotifyCall (arg) {
   spotify.search({ type: 'track', query: arg }, function(err, data) {
@@ -92,4 +73,3 @@ function saysCall (){
   });
 };
 
- 
