@@ -1,15 +1,15 @@
 
 var liri = require("./keys.js");
+var Twitter = require('twitter');
 var spotify = require("spotify");
 var fs = require("fs");
 var request = require('request');
-
 var params = process.argv.slice(2);
 
 
 switch(params[0]) {
   case "my-tweets":
-    tweetsCall(params[1]);
+    tweetsCall();
     break;
   case "spotify-this-song":
     if(params[1]){
@@ -28,7 +28,18 @@ switch(params[0]) {
   case "do-what-it-says":
     saysCall(params[1]);
     break;
-  }
+}
+
+function tweetsCall(){
+  var client = new Twitter(liri.twitterKeys);
+    
+  client.get('statuses/user_timeline', {screen_name: 'jmigsdesign'}, function (error, data, response){
+    for(var i = 0; i < data.length; i++){
+      console.log(data[i].text + "\r\n" +
+      data[i].created_at);
+    };
+  });
+}
 
 function spotifyCall (arg) {
   spotify.search({ type: 'track', query: arg }, function(err, data) {
