@@ -30,7 +30,7 @@ switch(params[1]) {
 }
 
 function tweetsCall(){
-  //var client = new Twitter(liri.twitterKeys);
+  //var client = new Twitter(twitterkeys.twitterKeys);
   
   var client = new twitter({
     consumer_key: twitterKeys.twitterKeys.consumer_key,
@@ -38,7 +38,7 @@ function tweetsCall(){
     access_token_key: twitterKeys.twitterKeys.access_token_key,
     access_token_secret: twitterKeys.twitterKeys.access_token_secret})
   
-  client.get('statuses/user_timeline', {screen_name: 'jmigsdesign'}, function(error, tweets, response){
+  client.get('statuses/user_timeline', {screen_name: 'jmigsdesign'}, function (error, tweets, response){
     for(var i = 0; i < data.length; i++){
       console.log(data[i].text);
       console.log(data[i].created_at);
